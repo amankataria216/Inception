@@ -1,4 +1,4 @@
-import { useEffect,useState, } from "react"
+import { useState, } from "react"
 import Shimmer from "./Shimmer";
 import { MENU_URL } from "../utils/Constants";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,11 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCatergory from "./RestaurantCategory";
 
 const RestaurantMenu=()=>{
+    const [showIndex,setShowIndex] =useState(0);
+    const handleClick=()=>{
+        setShow(!show)
+        console.log(show)
+    }
     
     const {resid}=useParams();
     const resMenu = useRestaurantMenu(resid);
@@ -27,7 +32,12 @@ const RestaurantMenu=()=>{
         {itemCards.map((x,i)=>{
             return(
                 <div>
-                <RestaurantCatergory key={x?.card?.card?.title} data={x?.card?.card}/>
+                <RestaurantCatergory 
+                key={x?.card?.card?.title}
+                data={x?.card?.card}
+                showMenu={i==showIndex?true:false} 
+                expand={()=>setShowIndex(i)}
+                 />
                 </div>
             )
    

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import RestaruentCard,{withLabledRestaurentCard} from "./RestaruentCard";
 import resObj from "../utils/mockData";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 const Body=()=>{
@@ -16,6 +17,7 @@ const Body=()=>{
 
     const RestaurentPromoted = withLabledRestaurentCard(RestaruentCard)
 
+    const {LogInUser,setuserName}=useContext(UserContext);
     //Whenever state varible updates , react triggers a reconciliation(re-rendering)
     useEffect(()=>{
         console.log("useEffect is called")
@@ -66,6 +68,10 @@ const Body=()=>{
                     }
                 }>Top Rated Restaurants</button>
                 </div>
+                <div>
+                <lable>User Name:</lable>
+                <input className="border border-black" value={LogInUser} onChange={(e)=>setuserName(e.target.value)}/>
+                </div>
             </div>
 
             <div className="flex flex-wrap">
@@ -83,6 +89,7 @@ const Body=()=>{
             }
             
             </div>
+            
 
         </div>
     )

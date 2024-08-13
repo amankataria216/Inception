@@ -1,13 +1,17 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
+
 
 //Example of named export
 export const Header =()=>{
-    console.log("header rendered!!")
+   // console.log("header rendered!!")
     const [loginState,setLoginState]=useState("Login")
      useEffect(()=>{console.log("useEffect called from header")},[loginState])
+     //This is use of context hook
+     const {LogInUser} =useContext(UserContext);
      const onlineStatus = useOnlineStatus();
     return(
         <div className="flex justify-between bg-orange-100 shadow-lg mb-4">
@@ -28,7 +32,7 @@ export const Header =()=>{
                         loginState==="Login"?setLoginState("Logout"):setLoginState("Login")
                     }}>
                         {loginState}</button>
-                    
+                    <li className="px-4 text-xl font-bold">{LogInUser}</li>
 
                 </ul>
             </div>
